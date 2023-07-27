@@ -1,13 +1,15 @@
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional
+import os
 
 import torch
 from lightning import LightningDataModule
-from torch.utils.data import ConcatDataset, DataLoader, Dataset, random_split
-from torchvision.datasets import MNIST
-from torchvision.transforms import transforms
+from torch.utils.data import DataLoader, random_split
+
+from src.data.components.stanford_cars_dataset import StanfordCarsCustomDataset
+from src.data.components.transforms import img_classification_transform
 
 
-class MNISTDataModule(LightningDataModule):
+class StanfordCarsDataModule(LightningDataModule):
     """Example of LightningDataModule for MNIST dataset.
 
     A DataModule implements 6 key methods:
@@ -37,7 +39,6 @@ class MNISTDataModule(LightningDataModule):
     def __init__(
         self,
         data_dir: str = "data/",
-        train_val_test_split: Tuple[int, int, int] = (55_000, 5_000, 10_000),
         batch_size: int = 64,
         num_workers: int = 0,
         pin_memory: bool = False,
@@ -49,25 +50,29 @@ class MNISTDataModule(LightningDataModule):
         self.save_hyperparameters(logger=False)
 
         # data transformations
-        self.transforms = transforms.Compose(
-            [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
-        )
+        self.transforms = img_classification_transform
 
-        self.data_train: Optional[Dataset] = None
-        self.data_val: Optional[Dataset] = None
-        self.data_test: Optional[Dataset] = None
+        self.data_train: Optional[StanfordCarsCustomDataset] = None
+        self.data_val: Optional[StanfordCarsCustomDataset] = None
+        self.data_test: Optional[StanfordCarsCustomDataset] = None
 
     @property
     def num_classes(self):
-        return 10
+        return 196
 
     def prepare_data(self):
         """Download data if needed.
 
         Do not use it to assign state (self.x = y).
         """
-        MNIST(self.hparams.data_dir, train=True, download=True)
-        MNIST(self.hparams.data_dir, train=False, download=True)
+        StanfordCarsCustomDataset(self.hparams.data_dir, train=True, transforms=self.transforms)
+        
+        subdirectories = ['cars_train', 'cars_test']
+        for subdir in subdirectories:
+            current_dir = f'{self.hparams.data_dir}/stanford-cars-dataset/{subdir}/{subdir}/'
+            for item in os.listdir(current_dir):
+                if not item.endswith('.jpg'):
+                    os.remove(f'{current_dir}{item}')
 
     def setup(self, stage: Optional[str] = None):
         """Load data. Set variables: `self.data_train`, `self.data_val`, `self.data_test`.
@@ -77,12 +82,12 @@ class MNISTDataModule(LightningDataModule):
         """
         # load and split datasets only if not loaded already
         if not self.data_train and not self.data_val and not self.data_test:
-            trainset = MNIST(self.hparams.data_dir, train=True, transform=self.transforms)
-            testset = MNIST(self.hparams.data_dir, train=False, transform=self.transforms)
-            dataset = ConcatDataset(datasets=[trainset, testset])
-            self.data_train, self.data_val, self.data_test = random_split(
-                dataset=dataset,
-                lengths=self.hparams.train_val_test_split,
+            self.data_train = StanfordCarsCustomDataset(self.hparams.data_dir, train=True, transforms=self.transforms)
+            testset = StanfordCarsCustomDataset(self.hparams.data_dir, train=False, transforms=self.transforms)
+            
+            self.data_val, self.data_test = random_split(
+                dataset=testset,
+                lengths=[0.5, 0.5],
                 generator=torch.Generator().manual_seed(42),
             )
 
@@ -127,4 +132,4 @@ class MNISTDataModule(LightningDataModule):
 
 
 if __name__ == "__main__":
-    _ = MNISTDataModule()
+    _ = StanfordCarsDataModule()

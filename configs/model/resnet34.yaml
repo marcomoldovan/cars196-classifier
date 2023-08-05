@@ -14,9 +14,6 @@ scheduler:
   patience: 10
 
 net:
-  _target_: src.models.components.mlp.MLP
-  input_size: 150528
-  lin1_size: 1000
-  lin2_size: 1000
-  lin3_size: 1000
-  output_size: 196
+  _target_: src.models.components.resnet34.ResNet34
+  num_classes: 196
+  pretrained: false

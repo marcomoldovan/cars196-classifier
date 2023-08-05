@@ -40,6 +40,7 @@ class StanfordCarsDataModule(LightningDataModule):
         self,
         data_dir: str = "data/",
         batch_size: int = 64,
+        train_val_test_split: list[float] = [0.5, 0.5],
         num_workers: int = 0,
         pin_memory: bool = False,
     ):
@@ -65,14 +66,20 @@ class StanfordCarsDataModule(LightningDataModule):
 
         Do not use it to assign state (self.x = y).
         """
-        StanfordCarsCustomDataset(self.hparams.data_dir, train=True, transforms=self.transforms)
-        
-        subdirectories = ['cars_train', 'cars_test']
+        print("hparams:", self.hparams)
+
+        StanfordCarsCustomDataset(
+            self.hparams.data_dir, train=True, transforms=self.transforms
+        )
+
+        subdirectories = ["cars_train", "cars_test"]
         for subdir in subdirectories:
-            current_dir = f'{self.hparams.data_dir}/stanford-cars-dataset/{subdir}/{subdir}/'
+            current_dir = (
+                f"{self.hparams.data_dir}/stanford-cars-dataset/{subdir}/{subdir}/"
+            )
             for item in os.listdir(current_dir):
-                if not item.endswith('.jpg'):
-                    os.remove(f'{current_dir}{item}')
+                if not item.endswith(".jpg"):
+                    os.remove(f"{current_dir}{item}")
 
     def setup(self, stage: Optional[str] = None):
         """Load data. Set variables: `self.data_train`, `self.data_val`, `self.data_test`.
@@ -82,12 +89,16 @@ class StanfordCarsDataModule(LightningDataModule):
         """
         # load and split datasets only if not loaded already
         if not self.data_train and not self.data_val and not self.data_test:
-            self.data_train = StanfordCarsCustomDataset(self.hparams.data_dir, train=True, transforms=self.transforms)
-            testset = StanfordCarsCustomDataset(self.hparams.data_dir, train=False, transforms=self.transforms)
-            
+            self.data_train = StanfordCarsCustomDataset(
+                self.hparams.data_dir, train=True, transforms=self.transforms
+            )
+            testset = StanfordCarsCustomDataset(
+                self.hparams.data_dir, train=False, transforms=self.transforms
+            )
+
             self.data_val, self.data_test = random_split(
                 dataset=testset,
-                lengths=[0.5, 0.5],
+                lengths=self.hparams.train_val_test_split,
                 generator=torch.Generator().manual_seed(42),
             )
 

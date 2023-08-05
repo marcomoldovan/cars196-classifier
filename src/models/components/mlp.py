@@ -1,15 +1,9 @@
 from torch import nn
+from omegaconf import OmegaConf
 
 
 class MLP(nn.Module):
-    def __init__(
-        self,
-        input_size: int = 784,
-        lin1_size: int = 256,
-        lin2_size: int = 256,
-        lin3_size: int = 256,
-        output_size: int = 10,
-    ):
+    def __init__(self, input_size, lin1_size, lin2_size, lin3_size, output_size):
         super().__init__()
 
         self.model = nn.Sequential(
@@ -26,13 +20,10 @@ class MLP(nn.Module):
         )
 
     def forward(self, x):
+        print("SHAPE X: ", x.shape)
         batch_size, channels, width, height = x.size()
 
         # (batch, 1, width, height) -> (batch, 1*width*height)
         x = x.view(batch_size, -1)
 
         return self.model(x)
-
-
-if __name__ == "__main__":
-    _ = MLP()

@@ -1,4 +1,7 @@
 import os
+import sys
+
+sys.path.append("..")
 
 import pytest
 from hydra.core.hydra_config import HydraConfig

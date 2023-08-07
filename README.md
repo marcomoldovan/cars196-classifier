@@ -1278,6 +1278,21 @@ pip install -r requirements.txt
 
 ## How to run
 
+Download datasets:
+
+https://www.kaggle.com/datasets/jessicali9530/stanford-cars-dataset
+
+https://www.kaggle.com/datasets/abdelrahmant11/standford-cars-dataset-meta
+
+**Folder structure:**
+```
+data:
+
+--> stanford-cars-dataset
+ 
+--> stanford-cars-dataset-meta
+```
+
 Train model with default configuration
 
 ```bash

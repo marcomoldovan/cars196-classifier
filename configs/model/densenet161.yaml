@@ -14,6 +14,7 @@ scheduler:
   patience: 10
 
 net:
-  _target_: src.models.components.resnet34.ResNet34
+  _target_: src.models.components.densenet161.DenseNet161
   num_classes: 196
-  pretrained: false
+  pretrained: true
+  freeze_layers: true

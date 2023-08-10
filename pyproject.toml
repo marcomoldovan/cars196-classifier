@@ -30,7 +30,6 @@ version = "0.1.0"
 description = ""
 authors = ["Marco Moldovan <marco.moldovan.1995@gmail.com>"]
 readme = "README.md"
-packages = [{include = "cars196_classifier"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -49,6 +48,8 @@ sh = "^2.0.4"
 pandas = "^2.0.3"
 matplotlib = "^3.7.2"
 einops = "^0.6.1"
+timm = "^0.9.5"
+efficientnet-pytorch = "^0.7.1"
 
 
 [tool.poetry.group.dev.dependencies]

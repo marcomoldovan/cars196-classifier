@@ -14,5 +14,7 @@ scheduler:
   patience: 10
 
 net:
-  _target_: src.models.components.squeezenet.SqueezeNet
+  _target_: src.models.components.resnet50.ResNet50
   num_classes: 196
+  pretrained: true
+  freeze_layers: true

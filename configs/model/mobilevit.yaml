@@ -14,5 +14,6 @@ scheduler:
   patience: 10
 
 net:
-  _target_: src.models.components.inception.GoogLeNet
+  _target_: src.models.components.mobilevit.MobileViT
   num_classes: 196
+  pretrained: true

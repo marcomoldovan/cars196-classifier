@@ -14,6 +14,7 @@ scheduler:
   patience: 10
 
 net:
-  _target_: src.models.components.alexnet.AlexNet
+  _target_: src.models.components.coatnet.CoaTNet
   num_classes: 196
-  dropout: 0.5
+  pretrained: true
+  freeze_layers: true

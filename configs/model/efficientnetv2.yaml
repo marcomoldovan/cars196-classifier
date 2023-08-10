@@ -18,3 +18,5 @@ net:
   num_classes: 196
   pretrained: true
   freeze_layers: true
+  num_unfrozen_layers: 1
+  dropout_value: 0.2

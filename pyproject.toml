@@ -50,6 +50,7 @@ matplotlib = "^3.7.2"
 einops = "^0.6.1"
 timm = "^0.9.5"
 efficientnet-pytorch = "^0.7.1"
+tensorboard = "^2.14.0"
 
 
 [tool.poetry.group.dev.dependencies]

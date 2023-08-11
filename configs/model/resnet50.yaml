@@ -3,7 +3,7 @@ _target_: src.models.lit_module.LitModule
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.000001
+  lr: 0.0001
   weight_decay: 0.0
 
 scheduler:
@@ -18,4 +18,4 @@ net:
   num_classes: 196
   pretrained: true
   freeze_layers: true
-  dropout_value: 0.3
+  dropout_value: 0.5

@@ -19,4 +19,4 @@ net:
   pretrained: true
   freeze_layers: true
   num_unfrozen_layers: 1
-  dropout_value: 0.2
+  dropout_value: 0.5

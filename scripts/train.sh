@@ -1,6 +1,5 @@
 #!/bin/bash
-# Schedule execution of many runs
-# Run from root folder with: bash scripts/schedule.sh
+# Schedule execution of all models
 
 python src/train.py model=coatnet
 

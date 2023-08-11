@@ -5,6 +5,7 @@ optimizer:
   _partial_: true
   lr: 0.001
   weight_decay: 0.0
+  momentum: 0.5
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
@@ -17,3 +18,5 @@ net:
   _target_: src.models.components.swintransformer.SwinTransformer
   num_classes: 196
   pretrained: true
+  freeze_layers: true
+  dropout_value: 0.5

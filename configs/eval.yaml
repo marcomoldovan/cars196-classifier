@@ -12,7 +12,7 @@ defaults:
 
 task_name: "eval"
 
-tags: ["dev"]
+tags: null
 
 # passing checkpoint path is necessary for evaluation
 ckpt_path: ???

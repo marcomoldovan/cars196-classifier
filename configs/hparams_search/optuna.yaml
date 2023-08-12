@@ -14,7 +14,7 @@ hydra:
     study_name: null
     n_jobs: 1
     direction: maximize
-    n_trials: 5
+    n_trials: 50
 
     sampler:
       _target_: optuna.samplers.TPESampler
@@ -23,18 +23,18 @@ hydra:
 
     params:
       data.batch_size: choice(16, 32, 64, 128, 256)
-      model.optimizer._target_: choice('torch.optim.Adam', 'torch.optim.SGD', 'torch.optim.RMSprop')
       model.optimizer.lr: interval(1e-6, 1e-2)
       model.optimizer.weight_decay: interval(1e-6, 1e-2)
-      model.optimizer.momentum: interval(0.5, 0.99) # only for SGD
       model.scheduler.factor: interval(0.05, 0.5)
       model.scheduler.patience: int(interval(5, 20))
       model.net.freeze_layers: choice(True, False)
       model.net.dropout_value: interval(0.1, 0.8)
 
+      # model.optimizer._target_: choice('torch.optim.Adam', 'torch.optim.SGD', 'torch.optim.RMSprop')
       # model.optimizer.betas: choice((0.8, 0.998), (0.9, 0.999), (0.92, 0.9992)) # only for Adam
       # model.scheduler.step_size: interval(5, 50) # only for StepLR
       #     model.scheduler._target_:
       # choice('torch.optim.lr_scheduler.ReduceLROnPlateau',
       # 'torch.optim.lr_scheduler.StepLR',
       # 'torch.optim.lr_scheduler.ExponentialLR')
+      # model.optimizer.momentum: interval(0.5, 0.99) # only for SGD

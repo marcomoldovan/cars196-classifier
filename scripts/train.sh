@@ -1,9 +1,9 @@
 #!/bin/bash
 # Schedule execution of all models
 
-python src/train.py model=coatnet model=coatnet
+python src/train.py model=coatnet task_name=coatnet
 
-python src/train.py model=densenet task_name=densenet
+python src/train.py model=densenet161 task_name=densenet161
 
 python src/train.py model=efficientnetv2 task_name=efficientnetv2
 

@@ -2,11 +2,9 @@
 
 #SBATCH --job-name=stanford_cars_training
 #SBATCH --partition=Nvidia2060
-#SBATCH --nodes=2              # Number of nodes
-#SBATCH --ntasks-per-node=2    # Tasks per node. This might be the number of GPUs you want per node.
-#SBATCH --gres=gpu:2           # Number of GPUs per node.
-#SBATCH --cpus-per-task=14     # According to the info, Nvidia2060 nodes have 14 CPUs.
-#SBATCH --mem=64G              # As per your previous requirement.
+#SBATCH --nodes=6              # Requesting 6 nodes (and thus 6 GPUs).
+#SBATCH --ntasks-per-node=1    # One task for each node's GPU.
+#SBATCH --mem=64G              
 #SBATCH --output=job.%j.out
 #SBATCH --error=job.%j.err
 

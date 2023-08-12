@@ -26,8 +26,8 @@ min_epochs: 1 # prevents early stopping
 max_epochs: 10
 
 # Use GPU and if available multiple GPUs
-accelerator: "ddp" # Distributed Data Parallel
-devices: -1 # Use all available GPUs, set to a specific number if you want to limit the GPUs
+accelerator: "gpu" # Distributed Data Parallel
+devices: 1 # Use all available GPUs, set to a specific number if you want to limit the GPUs
 
 # Enable mixed precision for extra speed-up
 precision: 16

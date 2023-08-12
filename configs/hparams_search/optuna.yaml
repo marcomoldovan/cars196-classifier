@@ -46,10 +46,3 @@ hydra:
       model.scheduler.factor: interval(0.1, 0.5)
       model.optimizer.weight_decay: interval(1e-5, 1e-3)
       model.optimizer.lr: interval(1e-4, 1e-2)
-      data.batch_size: choice(32, 64, 128)
-
-
-
-
-
-

@@ -40,7 +40,7 @@ class StanfordCarsDataModule(LightningDataModule):
         self,
         data_dir: str = "data/",
         batch_size: int = 64,
-        train_val_test_split: list[float] = [0.5, 0.5],
+        train_val_test_split: list = [0.5, 0.5],
         num_workers: int = 0,
         pin_memory: bool = False,
     ):

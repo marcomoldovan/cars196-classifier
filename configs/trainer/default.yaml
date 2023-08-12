@@ -1,3 +1,23 @@
+# _target_: lightning.pytorch.trainer.Trainer
+
+# default_root_dir: ${paths.output_dir}
+
+# min_epochs: 1 # prevents early stopping
+# max_epochs: 10
+
+# accelerator: cpu
+# devices: 1
+
+# # mixed precision for extra speed-up
+# # precision: 16
+
+# # perform a validation loop every N training epochs
+# check_val_every_n_epoch: 1
+
+# # set True to to ensure deterministic results
+# # makes training slower but gives more reproducibility than just setting seeds
+# deterministic: False
+
 _target_: lightning.pytorch.trainer.Trainer
 
 default_root_dir: ${paths.output_dir}
@@ -5,15 +25,13 @@ default_root_dir: ${paths.output_dir}
 min_epochs: 1 # prevents early stopping
 max_epochs: 10
 
-accelerator: cpu
-devices: 1
+# Use GPU and if available multiple GPUs
+accelerator: "ddp" # Distributed Data Parallel
+devices: -1 # Use all available GPUs, set to a specific number if you want to limit the GPUs
 
-# mixed precision for extra speed-up
-# precision: 16
+# Enable mixed precision for extra speed-up
+precision: 16
 
-# perform a validation loop every N training epochs
 check_val_every_n_epoch: 1
 
-# set True to to ensure deterministic results
-# makes training slower but gives more reproducibility than just setting seeds
 deterministic: False

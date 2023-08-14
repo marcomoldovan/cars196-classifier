@@ -14,12 +14,12 @@ hydra:
     study_name: null
     n_jobs: 1
     direction: maximize
-    n_trials: 30
+    n_trials: 10
 
     sampler:
       _target_: optuna.samplers.TPESampler
       seed: 1234
-      n_startup_trials: 5
+      n_startup_trials: 3
 
     params:
       # model.optimizer._target_: choice('torch.optim.Adam', 'torch.optim.SGD', 'torch.optim.RMSprop')
@@ -31,10 +31,11 @@ hydra:
       # 'torch.optim.lr_scheduler.ExponentialLR')
       # model.optimizer.momentum: interval(0.5, 0.99) # only for SGD
 
-      model.net.dropout_value: interval(0.3, 0.6)
-      data.batch_size: choice(32, 64, 128) # 128 does not work with swintran and mobilevit because 8GB GPU is not enough, 128 & 64 not work with densenet
-      model.net.freeze_layers: choice(True, False)
-      model.scheduler.patience: int(interval(5, 10))
-      model.scheduler.factor: interval(0.1, 0.5)
+      # model.net.dropout_value: interval(0.3, 0.6)
+      # data.batch_size: choice(32, 64, 128) # 128 does not work with swintran and mobilevit because 8GB GPU is not enough, 128 & 64 not work with densenet
+      # model.net.freeze_layers: choice(True, False)
+      # model.scheduler.patience: int(interval(5, 10))
+      # model.scheduler.factor: interval(0.1, 0.5)
       model.optimizer.weight_decay: interval(1e-5, 1e-3)
       model.optimizer.lr: interval(1e-4, 1e-2)
+      model.optimizer.momentum: interval(0.5, 0.99)

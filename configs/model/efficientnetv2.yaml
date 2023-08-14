@@ -1,10 +1,11 @@
 _target_: src.models.lit_module.LitModule
 
 optimizer:
-  _target_: torch.optim.Adam
+  _target_: torch.optim.SGD
   _partial_: true
   lr: 0.0015728511221616544
   weight_decay: 0.00021603651147797176
+  momentum: 0.5
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau

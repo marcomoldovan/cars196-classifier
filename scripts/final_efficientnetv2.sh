@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=efficientnetv2_training
 #SBATCH --partition=Nvidia2060          
-#SBATCH --output=logs/efficientnetv2.%j.out
-#SBATCH --error=logs/efficientnetv2.%j.err
+#SBATCH --output=logs/final_efficientnetv2.%j.out
+#SBATCH --error=logs/final_efficientnetv2.%j.err
 
 # Activate the virtual environment
 source cars196-classifier/.venv/bin/activate

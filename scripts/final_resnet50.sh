@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=resnet50_training
 #SBATCH --partition=Nvidia2060          
-#SBATCH --output=logs/resnet50.%j.out
-#SBATCH --error=logs/resnet50.%j.err
+#SBATCH --output=logs/final_resnet50.%j.out
+#SBATCH --error=logs/final_resnet50.%j.err
 
 # Activate the virtual environment
 source cars196-classifier/.venv/bin/activate

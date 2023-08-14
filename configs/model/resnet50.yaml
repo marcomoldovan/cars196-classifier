@@ -3,14 +3,14 @@ _target_: src.models.lit_module.LitModule
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.0001
-  weight_decay: 0.0
+  lr: 0.0001469086734678797
+  weight_decay: 7.914306604790045e-05
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
   _partial_: true
   mode: min
-  factor: 0.1
+  factor: 0.10085566532881239
   patience: 10
 
 net:
@@ -18,4 +18,4 @@ net:
   num_classes: 196
   pretrained: true
   freeze_layers: true
-  dropout_value: 0.5
+  dropout_value: 0.3199028323426459

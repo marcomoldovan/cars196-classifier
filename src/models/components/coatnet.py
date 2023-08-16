@@ -1,6 +1,7 @@
 import torch.nn as nn
 import timm
 
+
 class CoaTNet(nn.Module):
     def __init__(self, num_classes, pretrained, freeze_layers, dropout_value):
         super().__init__()
@@ -15,8 +16,7 @@ class CoaTNet(nn.Module):
 
         in_features = self.coatnet.head.in_features
         self.coatnet.head = nn.Sequential(
-            nn.Linear(in_features, num_classes),
-            nn.Dropout(dropout_value)
+            nn.Dropout(dropout_value), nn.Linear(in_features, num_classes)
         )
 
     def forward(self, x):

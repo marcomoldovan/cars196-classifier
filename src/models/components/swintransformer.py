@@ -16,8 +16,8 @@ class SwinTransformer(nn.Module):
 
         in_features = self.swin.head.in_features
         self.head = nn.Sequential(
+            nn.Dropout(dropout_value),
             nn.Linear(in_features, num_classes),
-            nn.Dropout(dropout_value)
         )
 
     def forward(self, x):

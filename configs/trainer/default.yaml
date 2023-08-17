@@ -12,4 +12,6 @@ devices: 1
 # Enable mixed precision for extra speed-up
 precision: 16
 
+check_val_every_n_epoch: 1
+
 deterministic: False

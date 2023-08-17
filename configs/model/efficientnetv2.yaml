@@ -5,7 +5,6 @@ optimizer:
   _partial_: true
   lr: 0.008038534557596691
   weight_decay: 0.00028369961259166576
-  momentum: 0.5
 
 scheduler:
   _target_: torch.optim.lr_scheduler.ReduceLROnPlateau

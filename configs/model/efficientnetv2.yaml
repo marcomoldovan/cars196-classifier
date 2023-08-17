@@ -1,7 +1,7 @@
 _target_: src.models.lit_module.LitModule
 
 optimizer:
-  _target_: torch.optim.SGD
+  _target_: torch.optim.Adam
   _partial_: true
   lr: 0.008038534557596691
   weight_decay: 0.00028369961259166576

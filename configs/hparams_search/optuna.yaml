@@ -25,7 +25,6 @@ hydra:
       model.optimizer._target_: choice('torch.optim.Adam', 'torch.optim.SGD')
       model.net.dropout_value: interval(0.3, 0.6)
       data.batch_size: choice(32, 64, 128) # 128 does not work with swintran and mobilevit because 8GB GPU is not enough, 128 & 64 not work with densenet
-      model.net.freeze_layers: choice(True, False)
       model.scheduler.patience: int(interval(5, 10))
       model.scheduler.factor: interval(0.1, 0.5)
       model.optimizer.weight_decay: interval(1e-5, 1e-3)

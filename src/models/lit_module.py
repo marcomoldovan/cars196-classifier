@@ -122,13 +122,22 @@ class LitModule(LightningModule):
     def configure_optimizers(self):
         """Choose what optimizers and learning-rate schedulers to use in your optimization.
         Normally you'd need one. But in the case of GANs or similar you might have multiple.
-
-        Examples:
-            https://lightning.ai/docs/pytorch/latest/common/lightning_module.html#configure-optimizers
         """
-        optimizer = self.hparams.optimizer(params=self.parameters())
-        if self.hparams.scheduler is not None:
-            scheduler = self.hparams.scheduler(optimizer=optimizer)
+
+        optimizer_params = {
+            "params": self.parameters(),
+            "lr": self.hparams.model.optimizer.lr,
+            "weight_decay": self.hparams.model.optimizer.weight_decay
+        }
+
+        # Adjusting parameters based on optimizer choice
+        if self.hparams.model.optimizer._target_ == 'torch.optim.SGD':
+            optimizer_params["momentum"] = self.hparams.model.optimizer.momentum_for_SGD
+
+        optimizer = self.hparams.model.optimizer._target_(**optimizer_params)
+        
+        if self.hparams.model.scheduler is not None:
+            scheduler = self.hparams.model.scheduler(optimizer=optimizer)
             return {
                 "optimizer": optimizer,
                 "lr_scheduler": {
@@ -139,6 +148,7 @@ class LitModule(LightningModule):
                 },
             }
         return {"optimizer": optimizer}
+
 
 
 if __name__ == "__main__":

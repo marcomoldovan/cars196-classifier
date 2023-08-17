@@ -118,24 +118,15 @@ class LitModule(LightningModule):
 
     def on_test_epoch_end(self):
         pass
-
+    
     def configure_optimizers(self):
         """Choose what optimizers and learning-rate schedulers to use in your optimization.
         Normally you'd need one. But in the case of GANs or similar you might have multiple.
+
+        Examples:
+            https://lightning.ai/docs/pytorch/latest/common/lightning_module.html#configure-optimizers
         """
-
-        optimizer_params = {
-            "params": self.parameters(),
-            "lr": self.hparams.optimizer.lr,
-            "weight_decay": self.hparams.optimizer.weight_decay
-        }
-
-        # Adjusting parameters based on optimizer choice
-        if self.hparams.optimizer._target_ == 'torch.optim.SGD':
-            optimizer_params["momentum"] = self.hparams.optimizer.momentum_for_SGD
-
-        optimizer = self.hparams.optimizer._target_(**optimizer_params)
-        
+        optimizer = self.hparams.optimizer(params=self.parameters())
         if self.hparams.scheduler is not None:
             scheduler = self.hparams.scheduler(optimizer=optimizer)
             return {
@@ -148,27 +139,6 @@ class LitModule(LightningModule):
                 },
             }
         return {"optimizer": optimizer}
-    
-    # def configure_optimizers(self):
-    #     """Choose what optimizers and learning-rate schedulers to use in your optimization.
-    #     Normally you'd need one. But in the case of GANs or similar you might have multiple.
-
-    #     Examples:
-    #         https://lightning.ai/docs/pytorch/latest/common/lightning_module.html#configure-optimizers
-    #     """
-    #     optimizer = self.hparams.optimizer(params=self.parameters())
-    #     if self.hparams.scheduler is not None:
-    #         scheduler = self.hparams.scheduler(optimizer=optimizer)
-    #         return {
-    #             "optimizer": optimizer,
-    #             "lr_scheduler": {
-    #                 "scheduler": scheduler,
-    #                 "monitor": "val/loss",
-    #                 "interval": "epoch",
-    #                 "frequency": 1,
-    #             },
-    #         }
-    #     return {"optimizer": optimizer}
 
 
 

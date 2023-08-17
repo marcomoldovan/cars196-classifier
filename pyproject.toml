@@ -51,6 +51,7 @@ einops = "^0.6.1"
 timm = "^0.9.5"
 efficientnet-pytorch = "^0.7.1"
 tensorboard = "^2.14.0"
+gradio = "^3.40.1"
 
 
 [tool.poetry.group.dev.dependencies]

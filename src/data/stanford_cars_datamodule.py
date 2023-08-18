@@ -1,3 +1,8 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 from typing import Any, Dict, Optional
 import os
 
@@ -144,3 +149,9 @@ class StanfordCarsDataModule(LightningDataModule):
 
 if __name__ == "__main__":
     _ = StanfordCarsDataModule()
+    dm = StanfordCarsDataModule(data_dir="data/", batch_size=64)
+    dm.prepare_data()
+    dm.setup()
+    dl = dm.train_dataloader()
+    x, y = next(iter(dl))
+    print(y)
